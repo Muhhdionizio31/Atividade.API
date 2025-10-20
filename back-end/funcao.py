@@ -66,3 +66,18 @@ def atualizar_produto(campo, novo_valor, id):
         print(f"Erro ao atualizar: {erro}")
     finally:
         conexao.close()
+
+def deletar_produto(id_produto):
+    conexao, cursor = conectar()
+    if conexao:
+        try:
+            cursor.execute(
+            "DELETE FROM produtos WHERE id = %s",
+                (id_produto,)
+            )
+            conexao.commit()
+        except Exception as erro:
+            print(f"Erro ao deletar produto do estoque: {erro}")
+        finally:
+            cursor.close()
+            conexao.close()
