@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from funcao import adicionar_produtos, listar_produtos
+from funcao import adicionar_produtos, listar_produtos, atualizar_produto, buscar_produto
 
 # Rodar o FastApi
 """python -m uvicorn api:app --reload"""
@@ -38,3 +38,12 @@ def exibir():
             "quantidade": linha[4]
         })
     return {"produtos": lista}
+
+@app.put("/produtos/{id_produto}")
+def atualizacao_produtos(id_produto: int, novo_nome: str,  nova_categoria: str, novo_preco: float, novo_quantidade: int):
+    produto = buscar_produto(id_produto)
+    if produto:
+        atualizar_produto(id_produto, novo_nome, nova_categoria, novo_preco, novo_quantidade,)
+        return{"mensagem": "Produto atualizado com sucesso!"}
+    else:
+        return{"erro": "Produto não encontrado"}

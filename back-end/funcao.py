@@ -51,21 +51,39 @@ def listar_produtos():
             )
             return cursor.fetchall()
         except Exception as erro:
-            print(f"Erro ao listar produtos do estoque: {erro}")
+            print(f"Erro ao listar produto do estoque: {erro}")
         finally:
             cursor.close()
             conexao.close()
 
-def atualizar_produto(campo, novo_valor, id):
-    try:
-        conexao, cursor = conectar()
-        cursor.execute(f"UPDATE produtos SET {campo} = %s WHERE id = %s", (novo_valor, id))
-        conexao.commit()
-        print(f"{campo.capitalize()} atualizado com sucesso!")
-    except Exception as erro:
-        print(f"Erro ao atualizar: {erro}")
-    finally:
-        conexao.close()
+def atualizar_produto(id_produto, novo_nome, nova_categoria, novo_preco, novo_quantidade):
+    conexao, cursor = conectar()
+    if conexao:
+        try:
+            cursor.execute(
+           "UPDATE produtos SET nome = %s, categoria = %s, preco = %s, quantidade = %s WHERE id = %s",
+                (novo_nome, nova_categoria, novo_preco, novo_quantidade, id_produto) 
+            )
+            conexao.commit()
+        except Exception as erro:
+            print(f"Erro ao atualizar produto: {erro}")
+        finally:
+            cursor.close()
+            conexao.close()
+
+def buscar_produto(id_produto):
+    conexao, cursor = conectar()
+    if conexao:
+        try:
+            cursor.execute(
+                "SELECT * FROM produtos WHERE id = %s", (id_produto,)
+            )
+            return cursor.fetchone()
+        except Exception as erro:
+            print(f"Erro ao tentar buscar produto: {erro}")
+        finally:
+            cursor.close()
+            conexao.close()
 
 def deletar_produto(id_produto):
     conexao, cursor = conectar()
