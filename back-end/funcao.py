@@ -7,7 +7,7 @@ def criar_tabela():
             cursor.execute("""
 
                 CREATE TABLE IF NOT EXISTS produtos (
-                    id INT PRIMARY KEY,
+                    id SERIAL PRIMARY KEY ,
                     nome VARCHAR(100) NOT NULL,
                     categoria VARCHAR(50),
                     preco DECIMAL(10,2),
@@ -21,3 +21,23 @@ def criar_tabela():
             cursor.close()
             conexao.close()
 criar_tabela()
+
+def adicionar_produtos(nome, categoria, preco, quantidade):
+    conexao, cursor = conectar()
+    if conexao:
+        try:
+            cursor.execute(
+
+                "INSERT INTO filmes (titulo, genero, ano, avaliacao) VALUES(%s, %s, %s, %s)",
+                (nome, categoria, preco, quantidade)
+
+            )
+            conexao.commit()
+        except Exception as erro:
+            print(f"Erro ao inserir produto no estoque: {erro}")
+        finally:
+            cursor.close()
+            conexao.close()
+
+
+    
