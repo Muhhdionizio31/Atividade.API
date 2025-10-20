@@ -10,7 +10,7 @@ def criar_tabela():
                     id SERIAL PRIMARY KEY ,
                     nome VARCHAR(100) NOT NULL,
                     categoria VARCHAR(50),
-                    preco DECIMAL(10,2),
+                    preco NUMERIC,
                     quantidade INT             
                 )
             """)
@@ -55,3 +55,14 @@ def listar_produtos():
         finally:
             cursor.close()
             conexao.close()
+
+def atualizar_produto(campo, novo_valor, id):
+    try:
+        conexao, cursor = conectar()
+        cursor.execute(f"UPDATE produtos SET {campo} = %s WHERE id = %s", (novo_valor, id))
+        conexao.commit()
+        print(f"{campo.capitalize()} atualizado com sucesso!")
+    except Exception as erro:
+        print(f"Erro ao atualizar: {erro}")
+    finally:
+        conexao.close()
