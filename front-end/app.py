@@ -48,4 +48,14 @@ elif menu == "Atualizar produto":
         else:
             st.error("❌ Erro ao atualizar registro")
 
+elif menu == "Deletar produto":
+    st.subheader("❌Deletar produto")
+    id_produto = st.number_input("ID do produto que deseja atualizar", min_value=1, step=1)
+    if st.button("Deletar produto"):
+        dados = {"id_produto": id_produto}
+        response = requests.delete(f"{API_URL}/produtos/{id_produto}", params=dados)
+        if response.status_code == 200:
+            st.success("Produto deletado com sucesso! ✔")
+        else:
+            st.error("❌ Erro ao deletar produto")
 
