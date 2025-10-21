@@ -59,3 +59,22 @@ elif menu == "Deletar produto":
         else:
             st.error("❌ Erro ao deletar produto")
 
+# ~~~~~~~~~~ ESTILIZANDO COM CSS ~~~~~~~~~~~~
+
+cor_fundo = """
+<style>
+[data-testid="stAppViewContainer"] {
+    background-color: #f2f2f2;
+}
+</style>
+"""
+cor_sidebar = """
+<style>
+[data-testid="stSidebar"] {
+    background-color: #4a6fa5;
+    font-color: #FFFFFF;
+}
+</style>
+"""
+st.markdown(cor_fundo, unsafe_allow_html=True)
+st.markdown(cor_sidebar, unsafe_allow_html=True)
