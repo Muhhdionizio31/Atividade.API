@@ -40,10 +40,10 @@ def exibir():
     return {"produtos": lista}
 
 @app.put("/produtos/{id_produto}")
-def atualizacao_produtos(id_produto: int, novo_nome: str,  nova_categoria: str, novo_preco: float, novo_quantidade: int):
+def atualizacao_produtos(id_produto: int, novo_nome: str,  nova_categoria: str, novo_preco: float, nova_quantidade: int):
     produto = buscar_produto(id_produto)
     if produto:
-        atualizar_produto(id_produto, novo_nome, nova_categoria, novo_preco, novo_quantidade,)
+        atualizar_produto(id_produto, novo_nome, nova_categoria, novo_preco, nova_quantidade,)
         return{"mensagem": "Produto atualizado com sucesso!"}
     else:
         return{"erro": "Produto não encontrado"}
